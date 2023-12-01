@@ -35,24 +35,30 @@ func TestSolveDay1B(t *testing.T) {
 }
 
 func TestSolveDay1BFull(t *testing.T) {
-	expected := 54194
+	expected := 54208
 	content, _ := os.ReadFile("input/day1.txt")
 	lines := strings.Split(string(content), "\n")
 	actual := SolveDay1B(lines)
-	if actual == expected {
+	if actual != expected {
 		t.Fatalf("Actual %d, does not equal expected %d", actual, expected)
 	}
 }
 
 func TestReplaceNumericDigits(t *testing.T) {
-	expected := "8wo3"
-	actual := ReplaceNumericDigits("eightwothree")
+	expected := "823"
+	actual := GetAllNumerical("eightwothree")
 	if actual != expected {
 		t.Fatalf("Actual %s, does not equal expected %s", actual, expected)
 	}
 
 	expected = "219"
-	actual = ReplaceNumericDigits("two1nine")
+	actual = GetAllNumerical("two1nine")
+	if actual != expected {
+		t.Fatalf("Actual %s, does not equal expected %s", actual, expected)
+	}
+
+	expected = "219"
+	actual = GetAllNumerical("two1ndskjfhskdjnine")
 	if actual != expected {
 		t.Fatalf("Actual %s, does not equal expected %s", actual, expected)
 	}

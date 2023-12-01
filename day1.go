@@ -26,14 +26,12 @@ func SolveDay1A(document []string) int {
 
 func SolveDay1B(document []string) int {
 	for index, line := range document {
-		old := strings.Clone(line)
-		document[index] = ReplaceNumericDigits(line)
-		fmt.Printf("%s => %s\n", old, document[index])
+		document[index] = GetAllNumerical(line)
 	}
 	return SolveDay1A(document)
 }
 
-func ReplaceNumericDigits(line string) string {
+func GetAllNumerical(line string) string {
 	lookup := map[string]string{
 		"one":   "1",
 		"two":   "2",
@@ -46,20 +44,21 @@ func ReplaceNumericDigits(line string) string {
 		"nine":  "9",
 		"zero":  "0",
 	}
+	var numerical []string
 
-	to := 1
-	for to <= len(line) {
+	for to := 1; to <= len(line); to++ {
 		for from := 0; from <= to; from++ {
 			nr := line[from:to]
-			translation, ok := lookup[nr]
-			if ok {
-				line = strings.Replace(line, nr, translation, 1)
-				to = 0 // start over, if something has been replaced since string length changes
-				break
+			if len(nr) == 1 && strings.Contains("1234567890", nr) {
+				numerical = append(numerical, nr)
+			} else {
+				translation, ok := lookup[nr]
+				if ok {
+					numerical = append(numerical, translation)
+				}
 			}
 		}
-		to = to + 1
 	}
 
-	return line
+	return strings.Join(numerical, "")
 }
