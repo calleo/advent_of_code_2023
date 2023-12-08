@@ -94,3 +94,22 @@ func AssertNotEquals(actual int, expected int, t *testing.T) {
 		t.Fatalf("Actual %d, does equal expected %d", actual, expected)
 	}
 }
+
+func GCD(a int, b int) int {
+	if b == 0 {
+		return a
+	}
+
+	tmp := a
+	a = b
+	b = tmp % a
+
+	return GCD(a, b)
+}
+
+func LCM(nums ...int) int {
+	if len(nums) == 2 {
+		return nums[0] * nums[1] / GCD(nums[0], nums[1])
+	}
+	return LCM(nums[0], LCM(nums[1:]...))
+}

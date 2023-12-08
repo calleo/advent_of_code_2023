@@ -24,11 +24,11 @@ func TestSolveDay5BSample(t *testing.T) {
 }
 
 /* This takes a long time, ~3 minutes */
-func TestSolveDay5B(t *testing.T) {
+/*func TestSolveDay5B(t *testing.T) {
 	input := ReadInputFile("day5.txt")
 	actual := SolveDay5B(input)
 	AssertEquals(actual, 37384986, t)
-}
+}*/
 
 func TestParseAlmanac(t *testing.T) {
 	input := ReadInputFile("day5_sample.txt")
