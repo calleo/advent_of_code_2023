@@ -107,7 +107,6 @@ func SolveDay8B(input []string, t *testing.T) map[string]int {
 
 	for {
 		for _, direction := range directions {
-			steps += 1
 			for index := 0; index < len(positions); index++ {
 				position := positions[index]
 
@@ -132,7 +131,7 @@ func SolveDay8B(input []string, t *testing.T) map[string]int {
 					}
 				}
 			}
-
+			steps += 1
 			if len(positionSteps) == len(positions) {
 				break
 			}

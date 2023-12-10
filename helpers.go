@@ -56,7 +56,12 @@ func (m *Matrix) neighboursOf(p Point) []Point {
 
 func ReadInputFile(name string) []string {
 	filename := fmt.Sprintf("input/%s", name)
-	content, _ := os.ReadFile(filename)
+	content, err := os.ReadFile(filename)
+
+	if err != nil {
+		panic(fmt.Sprintf("Error opening file %s. Error: %s", name, err))
+	}
+
 	return strings.Split(string(content), "\n")
 }
 

@@ -1,6 +1,7 @@
 package aoc2023
 
 import (
+	"golang.org/x/exp/maps"
 	"testing"
 )
 
@@ -16,8 +17,20 @@ func TestSolveDay8A(t *testing.T) {
 	AssertEquals(actual, 17141, t)
 }
 
-/*func TestSolveDay8BSample(t *testing.T) {
+func TestSolveDay8BSample(t *testing.T) {
 	input := ReadInputFile("day8b_sample.txt")
 	actual := SolveDay8B(input, t)
-	AssertEquals(actual, 6, t)
-}*/
+
+	answer := LCM(maps.Values(actual)...)
+
+	AssertEquals(answer, 6, t)
+}
+
+func TestSolveDay8B(t *testing.T) {
+	input := ReadInputFile("day8.txt")
+	actual := SolveDay8B(input, t)
+
+	answer := LCM(maps.Values(actual)...)
+
+	AssertEquals(answer, 10818234074807, t)
+}
