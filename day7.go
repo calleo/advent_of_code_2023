@@ -10,9 +10,10 @@ import (
 )
 
 type Hand struct {
-	cards []int
-	bid   int
-	rank  int
+	cards         []int
+	bid           int
+	rank          int
+	cardsOriginal string
 }
 
 func (h *Hand) GetCardOccurrences() map[int]int {
@@ -93,7 +94,7 @@ func ParseHands(input []string) []Hand {
 			cards = append(cards, cardAsInt)
 		}
 		bid, _ := strconv.Atoi(splitLine[1])
-		hands = append(hands, Hand{cards: cards, bid: bid})
+		hands = append(hands, Hand{cards: cards, bid: bid, cardsOriginal: splitLine[0]})
 	}
 
 	return hands
@@ -118,6 +119,7 @@ func SolveDay7A(input []string) int {
 	winnings := 0
 	hands := SortHands(ParseHands(input), false)
 	for rank, hand := range hands {
+		fmt.Printf("Hand: %v, Rank: %v\n", hand.cardsOriginal, rank+1)
 		winnings += hand.bid * (rank + 1)
 	}
 	return winnings

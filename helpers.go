@@ -27,6 +27,22 @@ func (m *Matrix) valueAt(x, y int) (Point, error) {
 	return m.data[y][x], nil
 }
 
+func (m *Matrix) southOf(p Point) (Point, error) {
+	return m.valueAt(p.x, p.y+1)
+}
+
+func (m *Matrix) northOf(p Point) (Point, error) {
+	return m.valueAt(p.x, p.y-1)
+}
+
+func (m *Matrix) westOf(p Point) (Point, error) {
+	return m.valueAt(p.x-1, p.y)
+}
+
+func (m *Matrix) eastOf(p Point) (Point, error) {
+	return m.valueAt(p.x+1, p.y)
+}
+
 func (m *Matrix) setAt(x, y int, value string) {
 	m.data[y][x].value = value
 }
@@ -88,9 +104,9 @@ func sumSlice(numbers []int) int {
 	return sum
 }
 
-func AssertEquals(actual int, expected int, t *testing.T) {
+func AssertEquals[T comparable](actual T, expected T, t *testing.T) {
 	if actual != expected {
-		t.Fatalf("Actual %d, does not equal expected %d", actual, expected)
+		t.Fatalf("Actual %+v, does not equal expected %+v", actual, expected)
 	}
 }
 

@@ -11,6 +11,12 @@ func TestSolveDay7ASample(t *testing.T) {
 	AssertEquals(actual, 6440, t)
 }
 
+func TestSolveDay7ASampleMartin(t *testing.T) {
+	input := []string{"84444 200", "29999 100"}
+	actual := SolveDay7A(input)
+	AssertEquals(actual, 500, t)
+}
+
 func TestSolveDay7A(t *testing.T) {
 	input := ReadInputFile("day7.txt")
 	actual := SolveDay7A(input)
