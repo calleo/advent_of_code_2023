@@ -81,6 +81,11 @@ func TestSolveDay10A(t *testing.T) {
 	AssertEquals(actual, 6897, t)
 }
 
+/*
+these examples doesn't work due to the way how
+
+	'S' is being handled and counted
+*/
 func TestSolveDay10BSample(t *testing.T) {
 	input := ReadInputFile("day10_sample.txt")
 	actual := SolveDay10B(input)
@@ -93,8 +98,26 @@ func TestSolveDay10BSampleB(t *testing.T) {
 	AssertEquals(actual, 4, t)
 }
 
-/*func TestSolveDay10BSampleC(t *testing.T) {
+func TestSolveDay10BSampleC(t *testing.T) {
 	input := ReadInputFile("day10_sample4.txt")
 	actual := SolveDay10B(input)
 	AssertEquals(actual, 8, t)
-}*/
+}
+
+func TestSolveDay10BSampleD(t *testing.T) {
+	input := ReadInputFile("day10_sample5.txt")
+	actual := SolveDay10B(input)
+	AssertEquals(actual, 10, t)
+}
+
+func TestSolveDay10BSampleE(t *testing.T) {
+	input := ReadInputFile("day10_sample6.txt")
+	actual := SolveDay10B(input)
+	AssertEquals(actual, 4, t)
+}
+
+func TestSolveDay10B(t *testing.T) {
+	input := ReadInputFile("day10.txt")
+	actual := SolveDay10B(input)
+	AssertEquals(actual, 367, t)
+}

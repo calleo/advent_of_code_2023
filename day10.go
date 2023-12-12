@@ -147,6 +147,19 @@ func IsOnPath(p Point, path []Point) bool {
 	return false
 }
 
+func ConnectedEastWest(east string, west string) bool {
+	switch east {
+	case "-":
+		return strings.Contains("-7J", west)
+	case "L":
+		return strings.Contains("-7J", west)
+	case "F":
+		return strings.Contains("-7J", west)
+	default:
+		return false
+	}
+}
+
 func IsEnclosed(p Point, path []Point, m Matrix) bool {
 	crossedLines := 0
 
@@ -154,12 +167,40 @@ func IsEnclosed(p Point, path []Point, m Matrix) bool {
 		return false
 	}
 
-	for x := p.x + 1; x < len(m.data); x++ {
-		currPoint, _ := m.valueAt(x, p.y)
-		// This over-simplification doesn't work since you can have a loop without pipes...
-		if currPoint.value == "|" && IsOnPath(currPoint, path) {
-			crossedLines++
+	// Go in the other direction of the S, since it's
+	// tricky to calculate if it's crossing the line or not
+
+	startPos := -1
+	for pos, value := range m.data[p.y] {
+		if value.value == "S" {
+			startPos = pos
+			break
 		}
+	}
+
+	direction := 1
+	var patterns []string
+
+	if startPos < p.x {
+		// go from east to west
+		direction = 1
+		patterns = append(patterns, "|", "L7", "FJ")
+	} else {
+		// go from west to east
+		direction = -1
+		patterns = append(patterns, "|", "7L", "JF")
+	}
+
+	line := ""
+	for x := p.x + (1 * direction); x < len(m.data[0]) && x >= 0; x += 1 * direction {
+		currPoint, _ := m.valueAt(x, p.y)
+		if currPoint.value != "-" && IsOnPath(currPoint, path) {
+			line += currPoint.value
+		}
+	}
+
+	for _, pattern := range patterns {
+		crossedLines += strings.Count(line, pattern)
 	}
 
 	return crossedLines != 0 && (crossedLines%2 != 0)
@@ -170,6 +211,7 @@ func SolveDay10B(input []string) int {
 	matrix := InputAsMatrix(input)
 	path.path = append(path.path, GetStart(matrix))
 	path = Traverse(matrix, path)
+
 	enclosedPoints := 0
 
 	for _, line := range matrix.data {

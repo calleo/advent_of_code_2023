@@ -119,7 +119,6 @@ func SolveDay7A(input []string) int {
 	winnings := 0
 	hands := SortHands(ParseHands(input), false)
 	for rank, hand := range hands {
-		fmt.Printf("Hand: %v, Rank: %v\n", hand.cardsOriginal, rank+1)
 		winnings += hand.bid * (rank + 1)
 	}
 	return winnings
