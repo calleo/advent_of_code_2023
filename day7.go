@@ -45,7 +45,7 @@ func (h *Hand) GetValueWithJokers(jokers bool) string {
 	nrOfPairs := CountOccurrencesOf(values, 2)
 	value := strings.Split("ZZZZZZZZZZZ", "")
 
-	if slices.Contains(values, 5) || (slices.Contains(values, 4) && nrOfJokers == 1) || (slices.Contains(values, 3) && nrOfJokers == 2) || nrOfJokers == 5 {
+	if slices.Contains(values, 5) || (slices.Contains(values, 4) && nrOfJokers == 1) || (slices.Contains(values, 3) && nrOfJokers == 2) || nrOfJokers == 5 || nrOfJokers == 4 || (nrOfJokers == 3 && nrOfPairs == 1) {
 		value[0] = "A"
 	} else if slices.Contains(values, 4) || (slices.Contains(values, 3) && nrOfJokers == 1) || (slices.Contains(values, 2) && nrOfJokers == 2) || (slices.Contains(values, 1) && nrOfJokers == 3) || nrOfJokers == 4 {
 		value[1] = "A"
