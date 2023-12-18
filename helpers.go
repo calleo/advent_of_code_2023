@@ -1,6 +1,7 @@
 package aoc2023
 
 import (
+	"crypto/sha1"
 	"errors"
 	"fmt"
 	"os"
@@ -16,6 +17,26 @@ type Point struct {
 	x     int
 	y     int
 	value string
+}
+
+func (m *Matrix) Print() {
+	for _, line := range m.data {
+		var values []string
+		for _, cell := range line {
+			values = append(values, cell.value)
+		}
+		fmt.Printf("%s\n", strings.Join(values, ""))
+	}
+}
+
+func (m *Matrix) Checksum() string {
+	var values []string
+	for _, line := range m.data {
+		for _, cell := range line {
+			values = append(values, cell.value)
+		}
+	}
+	return fmt.Sprintf("%x", sha1.Sum([]byte(strings.Join(values, ","))))
 }
 
 func (m *Matrix) valueAt(x, y int) (Point, error) {
